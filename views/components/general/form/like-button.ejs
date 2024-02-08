@@ -1,0 +1,8 @@
+<% /* 
+    Variables: action, method, likeCount 
+*/ %>
+<form action="<%= action %>" method="<% if(method !== 'undefined') { 
+    %><%= method %><% } %>" class="flex gap-3 rounded text-green-500 bg-transparent p-2 hover:text-gray-50 hover:bg-gradient-to-br hover:from-green-500 hover:to-green-700">
+    <%- include('../icons/like.ejs') %>
+    <div><%= likeCount %></div>
+</form>

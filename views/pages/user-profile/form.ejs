@@ -1,0 +1,22 @@
+<div class="p-5 m-10 rounded-lg shadow-inner flex gap-3 bg-gradient-to-br from-primary-700 to-primary-900">
+    <% if(typeof userProfile !== 'undefined') { %>
+    <div><img class="rounded-md" src="<%= userProfile.profilePicture %>" alt="Profile Picture"></div>
+    <div class="w-full flex flex-col gap-2">
+        <%- include('./data-row', { columnName: "Username", columnText: userProfile.username }) %>
+        <%- include('./data-row', { columnName: "Email", columnText: userProfile.email }) %>
+        <%- include('./data-row', { columnName: "Date of birth", columnText: userProfile.birthDate }) %>
+        <%- include('./data-row', { columnName: "Posted threads:", columnText: userProfile.postsCount }) %>
+        <%- include('./data-row', { columnName: "Comments", columnText: userProfile.commentsCount }) %>
+        <div class="grid grid-cols-5">
+            <div class="col-span-1 text-green-500 font-semibold">
+                <%- include('../../components/general/icons/like.ejs') %>
+                <span><%= userProfile.likes %></span>
+            </div>
+            <div class="col-span-1 text-red-500 font-semibold">
+                <%- include('../../components/general/icons/dislike.ejs') %>
+                <span><%= userProfile.dislikes %></span>
+            </div>
+        </div>
+    </div>
+    <% } %>
+</div>

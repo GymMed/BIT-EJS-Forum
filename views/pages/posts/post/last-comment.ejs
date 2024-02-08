@@ -1,0 +1,10 @@
+<% if( typeof post.lastCommentDate !== 'undefined') { %>
+<div class="flex gap-3">
+    <div class="flex flex-col">
+        <a href="/user/<%= post.lastCommentBy._id %>/profile">
+            <div class="font-semibold text-xs hover:underline hover:scale-105">Last Comment: <%= post.lastCommentBy.username %></div>
+        </a>
+        <div class="text-xs"><%= post.lastCommentDate.toDateString() %></div>
+    </div>
+</div>
+<% } %>

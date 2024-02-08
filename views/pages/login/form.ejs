@@ -1,0 +1,13 @@
+<form id="login-form" class="p-5 m-10 rounded-lg shadow-inner flex flex-col gap-3 bg-gradient-to-br from-primary-700 to-primary-900" action="api/user/login" method="post">
+    <div class="text-3xl font-bold text-accent-500 text-center">Log In</div>
+    <%- include('../../components/general/form/input-field.ejs',
+    {shownLabelName: "Username", type: "text", id:"username", name: "username",
+    placeholder: "Your username"}) %>
+
+    <%-
+    include('../../components/general/form/input-field.ejs', {shownLabelName:
+    "Password", type: "password", id:"password", name: "password", placeholder:
+    "Your password"}) %>
+
+    <%- include('../../components/general/button.ejs', {id: 'login', text: 'Log In'}) %>
+</form>

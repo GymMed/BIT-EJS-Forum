@@ -1,0 +1,7 @@
+<div class="flex flex-col gap-2 p-5 m-10">
+    <div class="p-5 rounded-lg shadow-inner flex flex-col gap-3 bg-gradient-to-br from-primary-700 to-primary-900">
+        <div class="text-3xl font-bold text-accent-500 text-center">Posts</div>
+    </div>
+    <div class="w-full flex gap-3 justify-end"><%- include('../../components/general/link-outside.ejs', {text: "Create New Post", url: "/post/create", color: "green"}) %></div>
+    <%- include('./container.ejs') %>
+</div>

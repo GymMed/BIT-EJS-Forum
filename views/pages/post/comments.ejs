@@ -1,0 +1,17 @@
+<% const commentsExist = (typeof comments !== 'undefined' && Array.isArray(comments) && comments.length > 0); %>
+<div class="flex flex-col gap-2">
+    <div class="p-5 rounded-lg shadow-inner flex gap-3 bg-gradient-to-br from-primary-700 to-primary-900">
+        <%- include('../../components/general/label.ejs', {name: 'comment', shownLabelName: 'Comments:'}) %>
+        <% if(!commentsExist) { %>
+        <div class="flex items-center justify-center font-semibold text-accent-500 text-xl">No comments posted yet!</div>
+        <% } else { %>
+        <div class="text-accent-500 font-semibold text-xl"><%= comments.length %></div>
+        <% } %>
+    </div>
+
+    <% if(commentsExist) { %>
+    <% for (comment of comments) { %>
+    <%- include('../../components/general/preview/comment.ejs', { content: comment.content, userProfile: comment.author }) %>
+    <% } %>
+    <% } %>
+</div>

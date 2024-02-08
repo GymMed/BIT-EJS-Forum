@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/public/styles/main.css" />
+</head>
+
+<body class="bg-primary-600">
+    <%- include('../../components/general/messages/message-manager.ejs') %>
+    <%- include('../../components/header/header.ejs') %>
+    <%- include('./body.ejs') %>
+    <%- include('../../components/footer/footer.ejs') %>
+    <script type="application/javascript" src="/tinymce/tinymce.min.js"></script>
+    <script src="/public/tinymce-config.js"></script>
+</body>
+
+</html>

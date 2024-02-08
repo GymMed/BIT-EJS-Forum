@@ -1,0 +1,5 @@
+<div class="flex flex-col gap-2">
+    <%- include('../label.ejs', {name: name, shownLabelName: shownLabelName}) %>
+    <%- include('../input.ejs', {type: type, id: id, name: name, placeholder:
+    placeholder, value: ((typeof value !== 'undefined') ? value : '')}) %>
+</div>

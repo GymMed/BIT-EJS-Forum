@@ -1,0 +1,4 @@
+<%- include('../../general/dropdown.ejs', { text: user.username, id: "profile", forms: [
+    { method: "get", action: "/profile", text: "Profile" },
+    { method: "get", action: "/api/user/logout", text: "Sign out" },
+] }) %>

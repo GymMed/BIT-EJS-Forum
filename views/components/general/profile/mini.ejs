@@ -1,0 +1,18 @@
+<div class="flex flex-col gap-1 text-gray-50 p-3 bg-primary-600 shadow-inner rounded w-min">
+    <div class="w-40"><img class="rounded" src="<%= userProfile.profilePicture %>" alt="Profile picture" loading="lazy"></div>
+    <div class="w-full flex items-center justify-center font-semibold text-accent-500"><%= userProfile.username %></div>
+    <div>Posts: <%= userProfile.postsCount %></div>
+    <div>Comments: <%= userProfile.commentsCount %></div>
+    <div>Registered: <%= userProfile.registrationDate.toDateString() %></div>
+    <div class="flex justify-between items-center">
+        <div class="flex gap-2 text-green-500">
+            <%- include('../icons/like.ejs') %>
+            <div><%= userProfile.likes %></div>
+        </div>
+
+        <div class="flex gap-2 text-red-500">
+            <%- include('../icons/dislike.ejs') %>
+            <div><%= userProfile.dislikes %></div>
+        </div>
+    </div>
+</div>

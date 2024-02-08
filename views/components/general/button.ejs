@@ -1,0 +1,8 @@
+<button type="<% if(typeof type === 'undefined' ) { 
+%>button<%
+} else { 
+%><%= type %><%
+}
+%>" class="shadow-lg bg-gradient-to-br <%- include('./color-logic.ejs') %> text-white rounded-md focus:ring focus:ring-offset-2 focus:ring-offset-white" id="<%= id %>">
+    <div class="hover:scale-110 py-1 px-4 font-semibold"><% if(typeof iconPath === 'string' && iconPath.trim() !== '' ) { %><%- include(iconPath) %><% } %><%= text %></div>
+</button>

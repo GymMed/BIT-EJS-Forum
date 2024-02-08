@@ -1,0 +1,10 @@
+<div class="p-5 rounded-lg shadow-inner flex gap-3 bg-gradient-to-br from-primary-700 to-primary-900">
+    <%- include('../profile/mini.ejs', { userProfile: (typeof preview !== 'undefined') ? user : userProfile  }) %>
+    <div class="text-md font-bold text-gray-50 text-center w-full"><%- content %></div>
+    <% if(typeof preview === 'undefined' && userProfile._id.toString() === user._id.toString()) { %>
+    <div class="flex items-start gap-2">
+        <%- include('../link-outside.ejs', { url: '#', text: '', color: 'green', iconPath: './icons/edit.ejs', padding: 'px-4 py-1' }) %>
+        <%- include('../link-outside.ejs', { url: '#', text: '', color: 'red', iconPath: './icons/remove.ejs', padding: 'px-4 py-1' }) %>
+    </div>
+    <% } %>
+</div>

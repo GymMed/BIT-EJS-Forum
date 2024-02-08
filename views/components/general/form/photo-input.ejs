@@ -1,0 +1,4 @@
+<div class="flex flex-col gap-2">
+    <%- include('../label.ejs', {name: name, shownLabelName: shownLabelName}) %>
+    <input class="text-accent-600" type="file" id="<%= id %>" name="<%= name %>" accept=".jpeg, .png, .gif, .bmp" />
+</div>

@@ -1,0 +1,13 @@
+<% /*
+    Variables: url, text, color, icon, padding
+    color values: 'undefined', green, red, blue, yellow
+    iconPath: is passed as a string
+    padding: passed tailwind classes
+ */%>
+<a class="block w-min h-min shadow-lg bg-gradient-to-br <%- include('./color-logic.ejs') %> text-white rounded-md focus:ring focus:ring-offset-2 focus:ring-offset-white" href="<%= url %>">
+    <div class="text-nowrap hover:scale-110 <% if(typeof padding === 'undefined') { 
+        %>py-1 px-14 <% } else { 
+        %><%= padding %>
+        <% } %>
+        font-semibold"><% if(typeof iconPath === 'string' && iconPath.trim() !== '' ) { %><%- include(iconPath) %><% } %><%= text %></div>
+</a>

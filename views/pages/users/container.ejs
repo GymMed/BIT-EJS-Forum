@@ -1,0 +1,9 @@
+<div class="p-5 rounded-lg shadow-inner flex flex-col gap-3 bg-gradient-to-br from-primary-700 to-primary-900">
+    <% if(typeof users !== 'undefined') { %>
+    <% for(const userPassed of users) { %>
+    <%- include('./user.ejs', { user: userPassed }) %>
+    <% } %>
+    <% } else { %>
+    <div class="w-full text-xl text-accent-500 text-center font-semibold">Currently there is no user yet!</div>
+    <% } %>
+</div>

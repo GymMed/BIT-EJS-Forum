@@ -1,0 +1,13 @@
+<form id="change-password-form" action="/api/user/change-password" method="post" class="p-5 m-10 rounded-lg shadow-inner flex flex-col gap-3 bg-gradient-to-br from-primary-700 to-primary-900">
+    <div class="text-3xl font-bold text-accent-500 text-center">Change Account Password</div>
+
+    <%- include('../../components/general/form/input-field.ejs', {shownLabelName:
+    "Current Password", type: "password", id:"currentPassword", name: "currentPassword", placeholder:
+    "Your current password"}) %>
+
+    <%- include('../../components/general/form/input-field.ejs', {shownLabelName:
+    "New Password", type: "password", id:"newPassword", name: "newPassword", placeholder:
+    "Your new password"}) %>
+
+    <%- include('../../components/general/button.ejs', {id: 'change-password', text: 'Change', type:'submit'}) %>
+</form>

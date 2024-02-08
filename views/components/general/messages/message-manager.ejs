@@ -1,0 +1,19 @@
+<% if(typeof message !== 'undefined') { %>
+<% switch (message.status) {
+    case 0: %>
+<%- include('./success/message.ejs') %>
+<% break
+    case 1: %>
+<%- include('./error/message.ejs') %>
+<% break
+    case 2: %>
+<%- include('./warning/message.ejs') %>
+<% break
+    case 3: %>
+<%- include('./info/message.ejs') %>
+<% break
+    default: 
+    %>
+<%- include('./error/message.ejs') %>
+<% } %>
+<% } %>
