@@ -531,6 +531,9 @@ video {
 .pointer-events-auto {
   pointer-events: auto;
 }
+.fixed {
+  position: fixed;
+}
 .absolute {
   position: absolute;
 }

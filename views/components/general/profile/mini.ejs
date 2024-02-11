@@ -8,13 +8,11 @@
     <div>Registered: <%= userProfile.registrationDate.toDateString() %></div>
     <div class="flex justify-between items-center">
         <div class="flex gap-2 text-green-500">
-            <%- include('../icons/like.ejs') %>
-            <div><%= userProfile.likes %></div>
+            <%- include('../fetch/like-button.ejs', { onclick: `handleLiking('/api/user/like/${userProfile._id}', 1)`, likeCount: userProfile.likes, p: false }) %>
         </div>
 
         <div class="flex gap-2 text-red-500">
-            <%- include('../icons/dislike.ejs') %>
-            <div><%= userProfile.dislikes %></div>
+            <%- include('../fetch/dislike-button.ejs', { onclick: `handleLiking('/api/user/dislike/${userProfile._id}', 1)`, dislikeCount: userProfile.dislikes, p: false }) %>
         </div>
     </div>
 </div>

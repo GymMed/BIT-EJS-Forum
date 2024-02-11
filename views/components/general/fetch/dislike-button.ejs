@@ -1,10 +1,11 @@
 <% /* 
-    Variables: onclick, dislikeCount 
+    Variables: onclick, dislikeCount, p
 */ %>
 <%
     const clickFunctionName = typeof onclick !== 'undefined' ? onclick : '';
+    const addPadding = typeof p !== 'undefined' ? p : true;
 %>
-<button type="button" class="dislike-fetch w-min cursor-pointer flex gap-1 rounded font-semibold text-red-500 bg-transparent p-2" onclick="<%= clickFunctionName %>">
+<button type="button" class="dislike-fetch w-min cursor-pointer flex gap-1 rounded font-semibold text-red-500 bg-transparent<% if(addPadding) { %> p-2<% } %>" onclick="<%= clickFunctionName %>">
     <%- include('../icons/dislike.ejs') %>
     <div><%= dislikeCount %></div>
 </button>
