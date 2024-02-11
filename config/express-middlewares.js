@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const pagesRouter = require("../routes/pages");
 // const postRoutes
 
+const messengerApiRouter = require("../routes/api/messenger-router");
 const userApiRouter = require("../routes/api/user-router");
 const postApiRouter = require("../routes/api/post-router");
 const commentApiRouter = require("../routes/api/comment-router");
@@ -38,6 +39,8 @@ function config(app) {
     app.use("/public", publicRoutes);
     app.use("/tinymce", express.static("node_modules/tinymce"));
     app.use(pagesRouter);
+
+    app.use("/api/messenger", messengerApiRouter);
     app.use("/api/user", userApiRouter);
     app.use("/api/post", postApiRouter);
     app.use("/api/comment", commentApiRouter);

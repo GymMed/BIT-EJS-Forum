@@ -65,9 +65,9 @@ const schema = new mongoose.Schema({
         required: true,
     },
 
-    profileLikedUser: [String],
+    profileLikedUsers: [String],
 
-    profileDislikedUser: [String],
+    profileDislikedUsers: [String],
 });
 
 const model = mongoose.model("user", schema);

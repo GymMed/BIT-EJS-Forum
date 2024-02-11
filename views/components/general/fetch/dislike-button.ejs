@@ -1,0 +1,10 @@
+<% /* 
+    Variables: onclick, dislikeCount 
+*/ %>
+<%
+    const clickFunctionName = typeof onclick !== 'undefined' ? onclick : '';
+%>
+<button type="button" class="dislike-fetch w-min cursor-pointer flex gap-1 rounded font-semibold text-red-500 bg-transparent p-2" onclick="<%= clickFunctionName %>">
+    <%- include('../icons/dislike.ejs') %>
+    <div><%= dislikeCount %></div>
+</button>

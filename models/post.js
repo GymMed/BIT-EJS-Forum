@@ -65,9 +65,9 @@ const schema = new mongoose.Schema({
         ref: "user",
     },
 
-    postLikedUser: [String],
+    postLikedUsers: [String],
 
-    postDislikedUser: [String],
+    postDislikedUsers: [String],
 });
 
 const Model = mongoose.model("post", schema);

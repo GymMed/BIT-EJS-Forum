@@ -1,5 +1,3 @@
-console.log("hi world!");
-
 function signOut() {
     console.log("sign out!");
     // choices: [ { href: "#", text:"Sign out", click: "signOut();" } ]

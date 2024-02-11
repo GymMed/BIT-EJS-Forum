@@ -233,4 +233,80 @@ router.post("/change-password", async (req, res) => {
     );
 });
 
+router.get("/like/:profileId", async (req, res) => {
+    if (!req.session.user) {
+        return res.status(403).json({
+            message: "You should log in!",
+            status: messageHandler.MESSAGE_STATUSES.Error,
+        });
+    }
+
+    const user = await UserModel.findOne({ _id: req.params.profileId });
+    if (user.profileLikedUsers.includes(req.session.user._doc._id.toString())) {
+        return res.status(403).json({
+            message: "You already liked this user!",
+            status: messageHandler.MESSAGE_STATUSES.Warning,
+        });
+    }
+
+    if (
+        user.profileDislikedUsers.includes(req.session.user._doc._id.toString())
+    ) {
+        user.profileDislikedUsers.splice(
+            user.profileDislikedUsers.findIndex(
+                (dislikedUser) =>
+                    req.session.user._doc._id.toString() === dislikedUser
+            ),
+            1
+        );
+        user.dislikes--;
+    }
+
+    user.profileLikedUsers.push(req.session.user._doc._id.toString());
+    user.likes++;
+    await user.save();
+    return res.status(200).json({
+        message: "Successfully liked profile",
+        status: messageHandler.MESSAGE_STATUSES.Success,
+    });
+});
+
+router.get("/dislike/:profileId", async (req, res) => {
+    if (!req.session.user) {
+        return res.status(403).json({
+            message: "You should log in!",
+            status: messageHandler.MESSAGE_STATUSES.Error,
+        });
+    }
+
+    const user = await UserModel.findOne({ _id: req.params.profileId });
+
+    if (
+        user.profileDislikedUsers.includes(req.session.user._doc._id.toString())
+    ) {
+        return res.status(403).json({
+            message: "You already disliked this user!",
+            status: messageHandler.MESSAGE_STATUSES.Warning,
+        });
+    }
+
+    if (user.profileLikedUsers.includes(req.session.user._doc._id.toString())) {
+        user.profileLikedUsers.splice(
+            user.profileLikedUsers.findIndex(
+                (dislikedUser) =>
+                    req.session.user._doc._id.toString() === dislikedUser
+            ),
+            1
+        );
+        user.likes--;
+    }
+    user.profileDislikedUsers.push(req.session.user._doc._id.toString());
+    user.dislikes++;
+    await user.save();
+    return res.status(200).json({
+        message: "Successfully dislike profile",
+        status: messageHandler.MESSAGE_STATUSES.Success,
+    });
+});
+
 module.exports = router;

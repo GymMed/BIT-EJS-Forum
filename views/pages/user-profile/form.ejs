@@ -9,12 +9,10 @@
         <%- include('./data-row', { columnName: "Comments", columnText: userProfile.commentsCount }) %>
         <div class="grid grid-cols-5">
             <div class="col-span-1 text-green-500 font-semibold">
-                <%- include('../../components/general/icons/like.ejs') %>
-                <span><%= userProfile.likes %></span>
+                <%- include('../../components/general/fetch/like-button.ejs', { onclick: `handleLiking('/api/user/like/${userProfile._id}', 1)`, likeCount: userProfile.likes }) %>
             </div>
             <div class="col-span-1 text-red-500 font-semibold">
-                <%- include('../../components/general/icons/dislike.ejs') %>
-                <span><%= userProfile.dislikes %></span>
+                <%- include('../../components/general/fetch/dislike-button.ejs', { onclick: `handleLiking('/api/user/dislike/${userProfile._id}', 1)`, dislikeCount: userProfile.dislikes }) %>
             </div>
         </div>
     </div>

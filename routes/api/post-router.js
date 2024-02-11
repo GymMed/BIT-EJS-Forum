@@ -59,6 +59,15 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id/update", async (req, res) => {
+    if (!req.session.user) {
+        return res.redirect(
+            `/login${messageHandler.formatMessage(
+                "You need to login to your account first in order to update a post!",
+                messageHandler.MESSAGE_STATUSES.Error
+            )}`
+        );
+    }
+
     const post = await PostModel.findOne({ _id: req.params.id });
     const { title, content } = req.body;
 
@@ -66,7 +75,7 @@ router.put("/:id/update", async (req, res) => {
         return res.status(404).json({ message: "Not found post!" });
     }
 
-    if (post.authorId !== req.session.user?.id) {
+    if (post.authorId.toString() !== req.session.user?._doc._id.toString()) {
         return res.status(403).json({
             message:
                 "Post doesn't belong for you! You cannot update posts of other users!",
@@ -79,6 +88,51 @@ router.put("/:id/update", async (req, res) => {
     await post.save();
 
     return res.status(200).json({ message: "Post updated successfully!" });
+});
+
+//forms only accpet get/post methods put is used for api
+router.post("/:id/update", async (req, res) => {
+    if (!req.session.user) {
+        return res.redirect(
+            `/login${messageHandler.formatMessage(
+                "You need to login to your account first in order to update a post!",
+                messageHandler.MESSAGE_STATUSES.Error
+            )}`
+        );
+    }
+
+    const post = await PostModel.findOne({ _id: req.params.id });
+    const { title, content } = req.body;
+
+    if (!post) {
+        return res.redirect(
+            `/posts${messageHandler.formatMessage(
+                "Post not found!",
+                messageHandler.MESSAGE_STATUSES.Error
+            )}`
+        );
+    }
+
+    if (post.authorId.toString() !== req.session.user?._doc._id.toString()) {
+        return res.redirect(
+            `/posts${messageHandler.formatMessage(
+                "Post doesn't belong for you! You cannot update posts of other users!",
+                messageHandler.MESSAGE_STATUSES.Error
+            )}`
+        );
+    }
+
+    post.title = title;
+    post.content = content;
+
+    await post.save();
+
+    return res.redirect(
+        `/post/${post._id}/${messageHandler.formatMessage(
+            "Post updated successfully!",
+            messageHandler.MESSAGE_STATUSES.Success
+        )}`
+    );
 });
 
 router.delete("/:id/remove", async (req, res) => {
@@ -106,6 +160,65 @@ router.delete("/:id/remove", async (req, res) => {
     await PostModel.findOneAndDelete({ _id: req.params.id });
 
     return res.status(200).json({ message: "Post deleted successfully!" });
+});
+
+router.get("/like/:postId", async (req, res) => {
+    if (!req.session.user) {
+        return res.status(403).json({ message: "You should log in!" });
+    }
+
+    const post = await PostModel.findOne({ _id: req.params.postId });
+    if (post.postLikedUsers.includes(req.session.user._doc._id.toString())) {
+        return res
+            .status(403)
+            .json({ message: "You already liked this post!" });
+    }
+
+    if (post.postDislikedUsers.includes(req.session.user._doc._id.toString())) {
+        post.postDislikedUsers.splice(
+            post.postDislikedUsers.findIndex(
+                (dislikedUser) =>
+                    req.session.user._doc._id.toString() === dislikedUser
+            ),
+            1
+        );
+        post.dislikesCount--;
+    }
+
+    console.log(req.session.user._doc._id.toString());
+    post.postLikedUsers.push(req.session.user._doc._id.toString());
+    post.likesCount++;
+    await post.save();
+    return res.status(200).json({ message: "Successfully liked post" });
+});
+
+router.get("/dislike/:postId", async (req, res) => {
+    if (!req.session.user) {
+        return res.status(403).json({ message: "You should log in!" });
+    }
+
+    const post = await PostModel.findOne({ _id: req.params.postId });
+
+    if (post.postDislikedUsers.includes(req.session.user._doc._id.toString())) {
+        return res
+            .status(403)
+            .json({ message: "You already disliked this post!" });
+    }
+
+    if (post.postLikedUsers.includes(req.session.user._doc._id.toString())) {
+        post.postLikedUsers.splice(
+            post.postLikedUsers.findIndex(
+                (dislikedUser) =>
+                    req.session.user._doc._id.toString() === dislikedUser
+            ),
+            1
+        );
+        post.likesCount--;
+    }
+    post.postDislikedUsers.push(req.session.user._doc._id.toString());
+    post.dislikesCount++;
+    await post.save();
+    return res.status(200).json({ message: "Successfully disliked post" });
 });
 
 module.exports = router;

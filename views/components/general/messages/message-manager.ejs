@@ -1,19 +1,48 @@
-<% if(typeof message !== 'undefined') { %>
-<% switch (message.status) {
-    case 0: %>
-<%- include('./success/message.ejs') %>
-<% break
-    case 1: %>
-<%- include('./error/message.ejs') %>
-<% break
-    case 2: %>
-<%- include('./warning/message.ejs') %>
-<% break
-    case 3: %>
-<%- include('./info/message.ejs') %>
-<% break
-    default: 
-    %>
-<%- include('./error/message.ejs') %>
-<% } %>
-<% } %>
+<div class="message-templates">
+    <%- include('./success/message.ejs', { isTemplate: true}) %>
+    <%- include('./error/message.ejs', { isTemplate: true}) %>
+    <%- include('./warning/message.ejs', { isTemplate: true}) %>
+    <%- include('./info/message.ejs', { isTemplate: true}) %>
+</div>
+
+<div class="absolute flex justify-center w-full h-full pointer-events-none">
+    <div class="pointer-events-auto messages-container relative flex flex-col gap-3 w-3/5 top-20 max-h-[16%] h-min overflow-y-auto">
+    </div>
+</div>
+
+<script>
+    const typesTemplates = [
+        <%= '{ status: 0, templateClass: `success-message-template` },' %>
+        <%= '{ status: 1, templateClass: `error-message-template` },' %>
+        <%= '{ status: 2, templateClass: `warning-message-template` },' %>
+        <%= '{ status: 3, templateClass: `info-message-template` },' %>
+    ];
+
+    const messagesContainer = document.getElementsByClassName("messages-container")[0];
+
+    <% if(typeof message !== 'undefined') { %>
+    addMessage("<%= message.text %>", <%= message.status %>);
+    <% } %>
+
+    function addMessage(message, status) {
+        const matchingTemplate = typesTemplates.find((type) => type.status === status);
+
+        if (!matchingTemplate)
+            return;
+
+        const foundTemplate = document.getElementsByClassName(matchingTemplate.templateClass)[0];
+
+        if (!foundTemplate)
+            return;
+
+        const template = foundTemplate.cloneNode(true);
+        messagesContainer.prepend(template);
+
+        template.classList.remove("hidden", matchingTemplate.templateClass);
+        template.querySelector('.message-text').innerHTML = message;
+
+        template.querySelector("button").addEventListener("click", function() {
+            template.remove();
+        });
+    }
+</script>

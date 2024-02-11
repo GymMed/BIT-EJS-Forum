@@ -1,0 +1,10 @@
+<% /* 
+    Variables: onclick, likeCount 
+*/ %>
+<%
+    const clickFunctionName = typeof onclick !== 'undefined' ? onclick : '';
+%>
+<button type="button" class="like-fetch w-min cursor-pointer flex gap-1 rounded font-semibold text-green-500 bg-transparent p-2" onclick="<%= clickFunctionName %>">
+    <%- include('../icons/like.ejs') %>
+    <div><%= likeCount %></div>
+</button>

@@ -1,17 +1,23 @@
+<%
+    const isEditMode = (typeof editMode !== 'undefined');
+    const postExist = (typeof post !== 'undefined');
+
+    const formAction = postExist ? `/api/post/${post._id}/update` : "/api/post";
+    const formMethod = 'post';
+
+    const postTitle = postExist ? post.title : '';
+    const postContent = postExist ? post.content : '';
+
+    const buttonId = (isEditMode ? 'edit' : 'create') + '-post';
+    const buttonText = isEditMode ? 'Edit' : 'Create';
+%>
 <section class="p-5 m-10 rounded-lg shadow-inner flex flex-col gap-3 bg-gradient-to-br from-primary-700 to-primary-900">
-    <div class="text-3xl font-bold text-accent-500 text-center"><% 
-    if(typeof editMode === 'undefined') 
-    { %> Create<% 
-    } 
-    else
-    { %> Edit<%
-    } %>
+    <div class="text-3xl font-bold text-accent-500 text-center"><%= buttonText %>
         New Post</div>
-    <form action="/api/post" method="post" class="flex flex-col gap-3">
+    <form action="<%= formAction %>" method="<%= formMethod %>" class="flex flex-col gap-3">
         <%- include('../../components/general/form/input-field.ejs', {shownLabelName: "Post Title", type: "text", id: "title", name: "title", placeholder:
-        "Your post title . . .", value: ((typeof post !== 'undefined') ? post.title : '')}) %>
-        <textarea name="content" id="text-editor"><% if (typeof post !== 'undefined') { 
-            %><%= post.content %><% } %></textarea>
-        <%- include('../../components/general/button.ejs', {type: 'submit', id: 'create-post', text: (typeof editMode === 'undefined') ? 'Create' : 'Edit', color: 'green'}) %>
+        "Your post title . . .", value: postTitle}) %>
+        <textarea name="content" id="text-editor"><%= postContent %></textarea>
+        <%- include('../../components/general/button.ejs', {type: 'submit', id: buttonId, text: buttonText, color: 'green'}) %>
     </form>
 </section>
