@@ -44,6 +44,10 @@ module.exports = {
                     950: "#09090b",
                 },
             },
+            gridTemplateColumns: {
+                page: "",
+                sidebar: "200px",
+            },
         },
     },
     plugins: [],

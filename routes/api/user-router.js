@@ -236,7 +236,7 @@ router.post("/change-password", async (req, res) => {
 router.get("/like/:profileId", async (req, res) => {
     if (!req.session.user) {
         return res.status(403).json({
-            message: "You should log in!",
+            message: "You should log in first!",
             status: messageHandler.MESSAGE_STATUSES.Error,
         });
     }
@@ -274,7 +274,7 @@ router.get("/like/:profileId", async (req, res) => {
 router.get("/dislike/:profileId", async (req, res) => {
     if (!req.session.user) {
         return res.status(403).json({
-            message: "You should log in!",
+            message: "You should log in first!",
             status: messageHandler.MESSAGE_STATUSES.Error,
         });
     }

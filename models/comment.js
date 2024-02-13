@@ -25,15 +25,19 @@ const schema = new mongoose.Schema({
         required: true,
     },
 
-    likesCount: {
+    likes: {
         type: Number,
         default: 0,
     },
 
-    dislikesCount: {
+    dislikes: {
         type: Number,
         default: 0,
     },
+
+    likedUsers: [String],
+
+    dislikedUsers: [String],
 });
 
 const Model = mongoose.model("comment", schema);

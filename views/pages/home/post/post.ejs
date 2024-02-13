@@ -1,0 +1,11 @@
+<%
+    const imgSrc = (typeof img !== 'undefined') ? img : "";
+    const finalText = (typeof text !== 'undefined') ? text : "Not Provided!";
+    const href = typeof url !== 'undefined' ? url : "#"; 
+%>
+<a href="<%= href %>" class="bg-gradient-to-br from-primary-700 to-primary-900 group p-3 flex flex-col gap-3 rounded-lg shadow-xl text-white">
+    <div class="opacity-50 group-hover:opacity-100">
+        <img class="rounded-md" src="<%= imgSrc %>" alt="Post Visual" width="" height="" loading="lazy">
+    </div>
+    <div class="text-lg font-semibold mb-5"><%= finalText %></div>
+</a>

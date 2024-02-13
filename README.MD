@@ -1,7 +1,7 @@
 # Express Forum Template
 
 <h1 align="center">
-    Template
+    Your EJS Template
 </h1>
 <br/>
 <div align="center">
@@ -49,4 +49,13 @@ MONGO_CONNECTION=mongodb+srv://__DB_USER:__DB_PASSWORD@__DB_HOST/__DB_NAME
 **[✔] 1.4 Launch the project**
 
 -   Use `npm run dev` to start project (uses nodemon), if you don't have nodemon use `node .`, `node app.js`.
--   use `npm run devcss` if you going to edit tailwind styles.
+-   Use `npm run devcss` if you going to edit tailwind styles.
+
+## Used assets
+
+-   Project uses [unsplash(MIT)](https://unsplash.com/license).
+
+### Unsplash authors
+
+-   [Vinicius Wiesehofer](https://unsplash.com/@wiesehofer)
+-   [Elena Mozhvilo](https://unsplash.com/@miracleday)

@@ -1,0 +1,10 @@
+<%
+    const templateText = "This News Post Template! Here you would post some text! News post is not the same as Post and are not developed yet!";
+%>
+<div class="px-10 py-6 grid gap-3">
+    <div class="page flex flex-col gap-3">
+        <%- include('./post/post.ejs', { img: '/public/images/home/girl-smiling.jpeg', text: templateText, url:"#" }) %>
+        <%- include('./post/post.ejs', { img: '/public/images/home/ligthy-wardrobe.jpeg', text: templateText, url:"#" }) %>
+    </div>
+    <div class="sidebar"><%- include('../../components/sidebar/sidebar.ejs') %></div>
+</div>

@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-2 p-5 m-10">
-    <%- include('../../components/general/preview/post.ejs', {post}) %>
+    <%- include('../../components/general/preview/post.ejs', {post, user: userProfile}) %>
 
     <%- include('./comments.ejs', {}) %>
 

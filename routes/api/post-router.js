@@ -164,14 +164,18 @@ router.delete("/:id/remove", async (req, res) => {
 
 router.get("/like/:postId", async (req, res) => {
     if (!req.session.user) {
-        return res.status(403).json({ message: "You should log in!" });
+        return res.status(403).json({
+            message: "You should log in!",
+            status: messageHandler.MESSAGE_STATUSES.Error,
+        });
     }
 
     const post = await PostModel.findOne({ _id: req.params.postId });
     if (post.postLikedUsers.includes(req.session.user._doc._id.toString())) {
-        return res
-            .status(403)
-            .json({ message: "You already liked this post!" });
+        return res.status(403).json({
+            message: "You already liked this post!",
+            status: messageHandler.MESSAGE_STATUSES.Warning,
+        });
     }
 
     if (post.postDislikedUsers.includes(req.session.user._doc._id.toString())) {
@@ -185,24 +189,30 @@ router.get("/like/:postId", async (req, res) => {
         post.dislikesCount--;
     }
 
-    console.log(req.session.user._doc._id.toString());
     post.postLikedUsers.push(req.session.user._doc._id.toString());
     post.likesCount++;
     await post.save();
-    return res.status(200).json({ message: "Successfully liked post" });
+    return res.status(200).json({
+        message: "Successfully liked post",
+        status: messageHandler.MESSAGE_STATUSES.Success,
+    });
 });
 
 router.get("/dislike/:postId", async (req, res) => {
     if (!req.session.user) {
-        return res.status(403).json({ message: "You should log in!" });
+        return res.status(403).json({
+            message: "You should log in!",
+            status: messageHandler.MESSAGE_STATUSES.Error,
+        });
     }
 
     const post = await PostModel.findOne({ _id: req.params.postId });
 
     if (post.postDislikedUsers.includes(req.session.user._doc._id.toString())) {
-        return res
-            .status(403)
-            .json({ message: "You already disliked this post!" });
+        return res.status(403).json({
+            message: "You already disliked this post!",
+            status: messageHandler.MESSAGE_STATUSES.Warning,
+        });
     }
 
     if (post.postLikedUsers.includes(req.session.user._doc._id.toString())) {
@@ -218,7 +228,10 @@ router.get("/dislike/:postId", async (req, res) => {
     post.postDislikedUsers.push(req.session.user._doc._id.toString());
     post.dislikesCount++;
     await post.save();
-    return res.status(200).json({ message: "Successfully disliked post" });
+    return res.status(200).json({
+        message: "Successfully disliked post",
+        status: messageHandler.MESSAGE_STATUSES.Success,
+    });
 });
 
 module.exports = router;

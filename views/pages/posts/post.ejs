@@ -11,11 +11,11 @@
     <div class="flex items-center gap-5">
         <%- include('./post/views.ejs') %>
 
-        <% if (typeof post.lastCommentBy !== 'undefined' && post.author._id.toString() !== user._id) { %>
+        <% if (typeof post.lastCommentBy !== 'undefined' && post.author._id.toString() !== user?._id) { %>
         <%- include('./post/last-comment.ejs') %>
         <% } %>
 
-        <% if(post.author._id.toString() === user._id) { %>
+        <% if(post.author._id.toString() === user?._id) { %>
         <%- include('./post/actions.ejs') %>
         <% } %>
     </div>

@@ -72,7 +72,7 @@ router.post("/post/:id/", async (req, res) => {
         );
 
         return res.redirect(
-            `/posts${messageHandler.formatMessage(
+            `/post/${post._id}/${messageHandler.formatMessage(
                 "Comment created successfully!",
                 messageHandler.MESSAGE_STATUSES.Success
             )}`
@@ -149,4 +149,75 @@ router.delete("/:id ", async (req, res) => {
     return res.status(200).json({ message: "Comment deleted successfully!" });
 });
 
+router.get("/like/:commentId", async (req, res) => {
+    if (!req.session.user) {
+        return res.status(403).json({
+            message: "You should log in first!",
+            status: messageHandler.MESSAGE_STATUSES.Error,
+        });
+    }
+
+    const comment = await CommentModel.findOne({ _id: req.params.commentId });
+    if (comment.likedUsers.includes(req.session.user._doc._id.toString())) {
+        return res.status(403).json({
+            message: "You already liked this comment!",
+            status: messageHandler.MESSAGE_STATUSES.Warning,
+        });
+    }
+
+    if (comment.dislikedUsers.includes(req.session.user._doc._id.toString())) {
+        comment.dislikedUsers.splice(
+            comment.dislikedUsers.findIndex(
+                (dislikedUser) =>
+                    req.session.user._doc._id.toString() === dislikedUser
+            ),
+            1
+        );
+        comment.dislikes--;
+    }
+
+    comment.likedUsers.push(req.session.user._doc._id.toString());
+    comment.likes++;
+    await comment.save();
+    return res.status(200).json({
+        message: "Successfully liked comment!",
+        status: messageHandler.MESSAGE_STATUSES.Success,
+    });
+});
+
+router.get("/dislike/:commentId", async (req, res) => {
+    if (!req.session.user) {
+        return res.status(403).json({
+            message: "You should log in first!",
+            status: messageHandler.MESSAGE_STATUSES.Error,
+        });
+    }
+
+    const comment = await CommentModel.findOne({ _id: req.params.commentId });
+
+    if (comment.dislikedUsers.includes(req.session.user._doc._id.toString())) {
+        return res.status(403).json({
+            message: "You already disliked this comment!",
+            status: messageHandler.MESSAGE_STATUSES.Warning,
+        });
+    }
+
+    if (comment.likedUsers.includes(req.session.user._doc._id.toString())) {
+        comment.likedUsers.splice(
+            comment.likedUsers.findIndex(
+                (dislikedUser) =>
+                    req.session.user._doc._id.toString() === dislikedUser
+            ),
+            1
+        );
+        comment.likes--;
+    }
+    comment.dislikedUsers.push(req.session.user._doc._id.toString());
+    comment.dislikes++;
+    await comment.save();
+    return res.status(200).json({
+        message: "Successfully disliked comment!",
+        status: messageHandler.MESSAGE_STATUSES.Success,
+    });
+});
 module.exports = router;

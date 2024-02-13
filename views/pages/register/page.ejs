@@ -10,9 +10,11 @@
 
 <body class="bg-primary-600">
     <%- include('../../components/general/messages/message-manager.ejs') %>
-    <%- include('../../components/header/header.ejs') %> <%-
-        include('./form.ejs') %> <%-
-        include('../../components/footer/footer.ejs') %>
+    <%- include('../../components/header/header.ejs') %>
+    <div class="flex justify-center items-center w-full">
+        <%- include('./form.ejs') %>
+    </div>
+    <%- include('../../components/footer/footer.ejs') %>
     <script src="public/register.js"></script>
 </body>
 

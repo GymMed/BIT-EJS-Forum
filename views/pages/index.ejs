@@ -5,26 +5,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title %></title>
-    <link rel="stylesheet" href="public/styles/main.css" />
+    <link rel="stylesheet" href="/public/styles/main.css" />
 </head>
 
 <body class="bg-primary-600">
     <%- include('../components/general/messages/message-manager.ejs') %>
-    <%- include('../components/header/header.ejs') %> Sveiki Visi! <%
-        if(typeof username !== 'undefined') { %>
-    <h5>
-        <%= username %>
-    </h5>
-    <% } %>
-
-    <ul class="flex flex-col gap-3">
-        <% for(const product of list) {%>
-        <li><%= product %></li>
-        <% } %>
-    </ul>
-    <h5><%= 16+6 %></h5>
+    <%- include('../components/header/header.ejs') %>
+    <%- include('./home/body.ejs') %>
     <%- include('../components/footer/footer.ejs') %>
-    <script src="public/index.js"></script>
+    <script src="/public/index.js"></script>
+    <script src="/public/messenger.js"></script>
+    <script src="/public/liking.js"></script>
 </body>
 
 </html>

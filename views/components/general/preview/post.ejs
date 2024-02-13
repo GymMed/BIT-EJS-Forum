@@ -1,10 +1,26 @@
+<%
+    const isPreview = typeof preview != 'undefined';
+%>
 <div class="flex flex-col gap-2">
     <div class="p-5 rounded-lg shadow-inner flex flex-col gap-3 bg-gradient-to-br from-primary-700 to-primary-900">
-        <div <% if(typeof 'preview' !== 'undefined') { %>id="preview-post" <% } %> class="text-3xl font-bold text-accent-500 text-center"><%= post.title %></div>
+        <div <% if(!isPreview) { %>id="preview-post" <% } %> class="text-3xl font-bold text-accent-500 text-center"><%= post.title %></div>
     </div>
 
     <div class="p-5 rounded-lg shadow-inner flex gap-3 bg-gradient-to-br from-primary-700 to-primary-900">
         <%- include('../profile/mini.ejs', {userProfile: userProfile}) %>
-        <div <% if(typeof 'preview' !== 'undefined') { %>id="preview-comment" <% } %>class="text-md font-bold text-gray-50 text-center w-full"><%- post.content %></div>
+        <div <% if(!isPreview) { %>id="preview-comment" <% } %>class="text-md font-bold text-gray-50 text-center w-full"><%- post.content %></div>
+
+        <% if (!isPreview) { %>
+        <div class="flex flex-col gap-3 items-end">
+            <div class="flex gap-3">
+                <div class="flex gap-2 text-green-500">
+                    <%- include('../fetch/like-button.ejs', { onclick: `handleLiking('/api/post/like/${post._id}', 1)`, likeCount: post.likesCount, p: false }) %>
+                </div>
+                <div class="flex gap-2 text-red-500">
+                    <%- include('../fetch/dislike-button.ejs', { onclick: `handleLiking('/api/post/dislike/${post._id}', 1)`, dislikeCount: post.dislikesCount, p: false }) %>
+                </div>
+            </div>
+        </div>
+        <% } %>
     </div>
 </div>
