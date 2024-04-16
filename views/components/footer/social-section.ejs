@@ -1,9 +1,9 @@
 <div class="flex flex-col gap-1.5">
-    <div class="text-lg font-semibold"><%= name %></div>
+    <div class="text-lg font-semibold text-center"><%= name %></div>
     <ul class="flex gap-0.5">
         <% for(const link of links) { %>
-        <li>
-            <%- include('./link.ejs', {text: link.text, url: link.url, active:
+        <li class="cursor-pointer rounded p-2 hover:bg-gradient-to-bl hover:from-accent-500 hover:to-accent-700 hover:text-primary-900">
+            <%- include('./icon-link.ejs', {icon: link.icon, url: link.url, active:
             false}) %>
         </li>
         <% } %>

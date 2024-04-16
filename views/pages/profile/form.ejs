@@ -1,6 +1,6 @@
-<div class="p-5 m-10 rounded-lg shadow-inner flex gap-3 bg-gradient-to-br from-primary-700 to-primary-900">
+<div class="p-5 mx-10 my-auto rounded-lg shadow-inner flex gap-3 bg-gradient-to-br from-primary-700 to-primary-900">
     <% if(typeof user !== 'undefined') { %>
-    <div><img class="rounded-md" src="<%= user.profilePicture %>" alt="Profile Picture"></div>
+    <div class="w-72"><img class="rounded-md" src="<%= user.profilePicture %>" alt="Profile Picture"></div>
     <div class="w-full flex flex-col gap-2">
         <%- include('./data-row', { columnName: "Username", columnText: user.username }) %>
         <%- include('./data-row', { columnName: "Email", columnText: user.email }) %>

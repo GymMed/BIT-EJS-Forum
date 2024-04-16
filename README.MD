@@ -59,3 +59,4 @@ MONGO_CONNECTION=mongodb+srv://__DB_USER:__DB_PASSWORD@__DB_HOST/__DB_NAME
 
 -   [Vinicius Wiesehofer](https://unsplash.com/@wiesehofer)
 -   [Elena Mozhvilo](https://unsplash.com/@miracleday)
+-   [Michael Dam](https://unsplash.com/@michaeldam)

@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="public/styles/main.css" />
 </head>
 
-<body class="bg-primary-600">
+<body class="bg-primary-600 min-h-screen flex flex-col">
     <%- include('../../components/general/messages/message-manager.ejs') %>
     <%- include('../../components/header/header.ejs') %>
-    <div class="flex justify-center items-center w-full">
+    <div class="flex justify-center items-center w-full my-auto">
         <%- include('./form.ejs') %>
     </div>
     <%- include('../../components/footer/footer.ejs') %>
